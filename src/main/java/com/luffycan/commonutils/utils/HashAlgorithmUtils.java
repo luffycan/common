@@ -1,11 +1,13 @@
 package com.luffycan.commonutils.utils;
 
+import com.luffycan.commonutils.common.exception.BaseRuntimeException;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 /**
- * Author: luffy
- * Time: 2023/11/01 14:45
+ * @author :luffy
+ * hash算法中的SHA
  */
 public class HashAlgorithmUtils {
 
@@ -18,9 +20,11 @@ public class HashAlgorithmUtils {
     public static String getSHA1(String input) {
         return hash(input, SHA_1);
     }
+
     public static String getSHA256(String input) {
         return hash(input, SHA_256);
     }
+
     public static String getSHA512(String input) {
         return hash(input, SHA_512);
     }
@@ -40,7 +44,7 @@ public class HashAlgorithmUtils {
             }
             return hexString.toString();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new BaseRuntimeException(e);
         }
     }
 }

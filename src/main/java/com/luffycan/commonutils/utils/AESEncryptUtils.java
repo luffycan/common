@@ -8,8 +8,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 /**
- * Author: luffy
- * Time: 2023/10/26 8:55
+ * AES加解密工具
+ * @author : luffy
+ * @date: 2023/10/26 8:55
  */
 public class AESEncryptUtils {
     /**
@@ -34,8 +35,9 @@ public class AESEncryptUtils {
             if (iv != null && !iv.isEmpty()) {
                 byte[] aesIv = initIv(iv);
                 ivps = new IvParameterSpec(aesIv);
-            } else
+            } else {
                 ivps = new IvParameterSpec(AES_IV);
+            }
             cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key.getBytes(), AES_ALG), ivps);
             byte[] cleanBytes = cipher.doFinal(Base64.getDecoder().decode(content.getBytes()));
             return new String(cleanBytes, charset);
@@ -59,8 +61,9 @@ public class AESEncryptUtils {
             if (iv != null && !iv.isEmpty()) {
                 byte[] aesIv = initIv(iv);
                 ivps = new IvParameterSpec(aesIv);
-            } else
+            } else {
                 ivps = new IvParameterSpec(AES_IV);
+            }
             cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key.getBytes(), AES_ALG), ivps);
             byte[] encryptBytes = cipher.doFinal(content.getBytes(charset));
             return new String(Base64.getEncoder().encode(encryptBytes));
@@ -83,15 +86,4 @@ public class AESEncryptUtils {
             return new byte[blockSize];
         }
     }
-
-    public static void main(String[] args) {
-        String key = "corsairluf10easy";
-        String test = "2088931776511770";
-
-        String encrypt = encrypt(test, key, StandardCharsets.UTF_8.toString());
-        System.out.println(encrypt);
-        String decrypt = decrypt(encrypt, key, StandardCharsets.UTF_8.toString());
-        System.out.println(decrypt);
-    }
-
 }
