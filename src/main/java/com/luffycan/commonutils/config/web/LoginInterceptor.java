@@ -1,7 +1,6 @@
-package com.luffycan.commonutils.config.webConfig;
+package com.luffycan.commonutils.config.web;
 
 
-import com.luffycan.commonutils.common.ResponseResult;
 import com.luffycan.commonutils.common.TokenHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +35,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             NoNeedsLogin methodAnnotation = handlerMethod.getMethodAnnotation(NoNeedsLogin.class);
             if (methodAnnotation == null || !methodAnnotation.value()) {
                 logger.error("请求地址:{}被拦截", request.getRequestURI());
-                ResponseResult notLogin = ResponseResult.fail("not login!");
+//                ResponseResult notLogin = ResponseResult.fail("not login!");
 //                response.getWriter().write(JsonUtils.objectToJson(notLogin));
                 return false;
             }

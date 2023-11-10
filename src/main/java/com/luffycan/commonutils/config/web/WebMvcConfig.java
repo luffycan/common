@@ -1,4 +1,4 @@
-package com.luffycan.commonutils.config.webConfig;
+package com.luffycan.commonutils.config.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -6,13 +6,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 
 @Configuration
 @Slf4j
-public class XmWebMvcConfig implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer {
 
 
     @Value("${rest-template-connectTimeout}")
@@ -24,7 +25,9 @@ public class XmWebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         LoginInterceptor loginInterceptor = new LoginInterceptor();
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("**.html", "**.js,**.css,**.ico", "/error");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/**")
+                .excludePathPatterns("/**/*.html", "/**.js,/**.css,/**.ico", "/error")
+                .excludePathPatterns("/v3/**","/swagger-ui/**");;
     }
 
     @Bean
